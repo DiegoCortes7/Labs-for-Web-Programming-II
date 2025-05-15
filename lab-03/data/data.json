@@ -1,0 +1,29 @@
+{
+    "home": {
+      "welcomeMessage": "Welcome to My Website!",
+      "introText": "This is a sample website created for Web Programming II lab."
+    },
+    "gallery": [
+      {
+        "title": "Image 1",
+        "src": "images/image1.jpg",
+        "description": "Time Around the World"
+      },
+      {
+        "title": "Image 2",
+        "src": "images/image2.jpg",
+        "description": "A nice vintage clock"
+      },
+      {
+        "title": "Image 3",
+        "src": "images/image3.jpg",
+        "description": "Check out these clocks"
+      }
+    ],
+    "contact": {
+      "heading": "Contact Us",
+      "email": "contact@example.com",
+      "phone": "123-456-7890",
+      "address": "123 Main Street, New York, NY"
+    }
+  }

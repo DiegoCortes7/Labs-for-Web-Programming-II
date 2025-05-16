@@ -1,40 +1,39 @@
-const Student = require('./student');
 const Course = require('./course');
+const Student = require('./student');
 
-// === Create a course ===
-const course = new Course("Web Dev II", "Advanced JavaScript topics", "12 weeks");
+async function main() {
+  // Step 1: Create a new course
+  const webCourse = new Course("Web Programming II", "Advanced topics in web development", "10 weeks");
 
-// === Add students ===
-const s1 = new Student("Alice", 22, ["HTML", "CSS"]);
-const s2 = new Student("Bob", 24);
-s2.addSubject("JavaScript");
+  // Step 2: Create and add students
+  const student1 = new Student("Alice", 21, ["HTML", "CSS"]);
+  const student2 = new Student("Bob", 23, ["JavaScript", "Node.js"]);
 
-course.addStudent(s1);
-course.addStudent(s2);
+  webCourse.addStudent(student1);
+  webCourse.addStudent(student2);
 
-// === Display course info ===
-console.log("Total Students:", course.students.length);
-console.log("Average Age:", course.getAverageAge());
+  // Step 3: Save course to a file
+  const filename = 'courseData.json';
+  await webCourse.saveToFile(filename);
 
-// === Serialize course to JSON ===
-const courseJSON = JSON.stringify(course.toJSON());
-console.log("\nSerialized JSON:\n", courseJSON);
+  // Step 4: Load course from file
+  const loadedCourse = await Course.loadFromFile(filename);
 
-// === Deserialize JSON back to object ===
-const parsedCourse = Course.fromJSON(courseJSON);
-console.log("\nParsed Course Object:", parsedCourse);
+  // Step 5: Print loaded course info
+  if (loadedCourse) {
+    console.log("\n📘 Loaded Course Information:");
+    console.log("Title:", loadedCourse.title);
+    console.log("Description:", loadedCourse.description);
+    console.log("Duration:", loadedCourse.duration);
+    console.log("Average Student Age:", loadedCourse.getAverageAge());
 
-// === Type checking ===
-function isString(input) {
-    return typeof input === 'string';
+    console.log("\n👥 Students:");
+    loadedCourse.students.forEach((s, i) => {
+      console.log(`- ${s.name}, Age: ${s.age}, Subjects: ${s.subjects.join(', ')}`);
+    });
+  } else {
+    console.log("Failed to load course.");
+  }
 }
 
-function validateStudent(student) {
-    return typeof student.name === 'string' &&
-           typeof student.age === 'number' &&
-           Array.isArray(student.subjects);
-}
-
-// === Test type checking ===
-console.log("\nIs 'Alice' a string?", isString("Alice"));
-console.log("Is valid student?", validateStudent(s1));
+main();

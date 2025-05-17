@@ -37,18 +37,16 @@ class Course {
     return course;
   }
 
-  // New method to save course to a JSON file asynchronously
   async saveToFile(filename) {
     try {
       const jsonData = JSON.stringify(this);
       await fs.writeFile(filename, jsonData);
-      console.log(`Course data saved to ${filename}`);
+      console.log(`✅ Course data saved to ${filename}`);
     } catch (error) {
-      console.error(`Error saving course data: ${error.message}`);
+      console.error(`❌ Error saving course data: ${error.message}`);
     }
   }
 
-  // New static method to load course from a JSON file asynchronously
   static async loadFromFile(filename) {
     try {
       const fileContent = await fs.readFile(filename, 'utf-8');
@@ -59,8 +57,11 @@ class Course {
       );
       return course;
     } catch (error) {
-      console.error(`Error loading course data: ${error.message}`);
-      // Return null or throw to let caller handle error
+      if (error.code === 'ENOENT') {
+        console.error(`❌ File not found: ${filename}`);
+      } else {
+        console.error(`❌ Error loading course data: ${error.message}`);
+      }
       return null;
     }
   }

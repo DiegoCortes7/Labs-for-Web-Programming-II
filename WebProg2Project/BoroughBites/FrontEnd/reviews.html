@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vendor Reviews</title>
+</head>
+<body>
+  <h1>📝 Reviews for Vendor</h1>
+  <div id="reviews-container"></div>
+
+  <script type="module">
+    const urlParams = new URLSearchParams(window.location.search);
+    const vendorId = urlParams.get('vendorId');
+
+    async function loadReviews() {
+      try {
+        const res = await fetch(`http://localhost:3000/reviews?vendorId=${vendorId}`);
+        const reviews = await res.json();
+
+        const container = document.getElementById('reviews-container');
+
+        if (reviews.length === 0) {
+          container.textContent = 'No reviews yet.';
+          return;
+        }
+
+        reviews.forEach(r => {
+          const div = document.createElement('div');
+          div.innerHTML = `
+            <strong>${r.reviewer_name || 'Anonymous'}</strong><br>
+            Rating: ${r.rating}/5<br>
+            Comment: ${r.comment}<br><hr>
+          `;
+          container.appendChild(div);
+        });
+      } catch (err) {
+        console.error('Failed to load reviews:', err);
+      }
+    }
+
+    loadReviews();
+  </script>
+</body>
+</html>

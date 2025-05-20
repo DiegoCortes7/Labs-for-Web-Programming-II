@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <style>
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .nav-buttons {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>👋 Welcome to your Dashboard!</h1>
+  <p id="welcomeMessage">Loading user info...</p>
+
+  <!-- 🚀 Navigation buttons -->
+  <div class="nav-buttons">
+    <button onclick="window.location.href='index.html'">📋 View Vendors</button>
+    <button onclick="window.location.href='reviews.html'">⭐ See All Reviews</button>
+  </div>
+
+  <button id="logoutBtn">🚪 Logout</button>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

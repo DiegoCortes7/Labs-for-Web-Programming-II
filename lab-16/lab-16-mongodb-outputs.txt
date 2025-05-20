@@ -1,0 +1,7 @@
+lab-16-mongodb-outputs
+
+{
+  "_id": ObjectId("..."),
+  "name": "Test Name",
+  "value": "Test Value"
+}
